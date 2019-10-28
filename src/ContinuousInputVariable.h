@@ -1,0 +1,4 @@
+
+class ContinuousInputVariable: public InputVariable{
+	
+}
