@@ -1,16 +1,26 @@
 #ifndef INPUTVARIABLE_H
 #define INPUTVARIABLE_H
+#include <string>
+using namespace std;
 
 class InputVariable{
 
 	private:
 		string name;
-		bool partition_type; //0: average; 1: biased
 		Range range;
-		Range* partitions;
+		int partition_type; //0: average; 1: biased
+		list<Range> partitions;
 	public:
-		InputVariable(string, bool, Range, Range*);
+		InputVariable(string, int, Range, Range*);
 
 };
+
+InputVariable::InputVariable(string n, Range r,  Range* p)
+{
+	name = n;
+	range = r;
+//	partition_type = t;
+	partitions = p;
+}
 
 #endif
