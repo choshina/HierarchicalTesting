@@ -1,48 +1,83 @@
 #include "Parser.h"
 #include <iostream>
 #include <fstream>
+#include <sstream>
+#include <stdlib.h>
+using namespace std;
 
-Parser::Parser()
+
+SearchSpace* Parser::getSearchSpace(string cf)
 {
-		
-}
+	SearchSpace* space;
+	ifstream fin(cf);
+	string line = "";
 
-SearchSpace Parser::GetSearchSpace(string cf)
-{
-	SearchSpace ss;
-	ifstream fin("input.config")
-	line = "";
-
+	stringstream ss;
 	getline(fin, line);
-	int n = atoi(line.c_str());
-	ss = new SearchSpace(n);
+	int n;
+	ss<<line;
+	ss>>n;
+	ss.str("");	
+	space = new SearchSpace();
 
-	for(i = 0;i < n;i ++)
+	for(int i = 0;i < n;i ++)
 	{
-		InputVariable iv_t;
 		getline(fin, line);
-		line = line.substr();
+		line = line.substr(line.find(':')+1);
 			
+
 		if(line == "continuous"){
 			
 			getline(fin, line);
-			name = line.substr();
+			string name = line.substr(line.find(':')+1);
+			cout<<name<<endl;
 
 			getline(fin, line);
-			Range r = new ContinuousRange();
-			r.buildRange();
+			ContinuousRange* r = new ContinuousRange();
+			string lb_str = line.substr(line.find(':')+1, 1);
+			ss<<lb_str;
+			double lb;
+			ss>>lb;
+			ss.str("");
+
+			string ub_str = line.substr(line.find(',')+1, 1);
+			ss<<ub_str;
+			double ub;
+			ss>>ub;
+			ss.str("");
+			r->buildRange(lb,ub);
 
 			getline(fin, line);
-			list<Range> par;
-			if(line.substr()== "average"){
-				Range rg = ;
-				par.push_back();
-			}
+			list<Range*>* par;
+
+			if(line.substr(line.find(':')+1)== "average"){
+				getline(fin, line);
+
 			
-			iv_t = new ContinuousInputVariable();
+				int num_par;
+				ss<<line.substr(line.find(':')+1);
+				ss>>num_par;
+				ss.str("");
+				
+				double l_pos = lb;
+				double step_size = r->getLength()/num_par;
+				for(int j = 0; j < num_par; j++){
+					ContinuousRange* rg = new ContinuousRange();
+					rg->buildRange(l_pos, step_size);
+					l_pos = l_pos + step_size;
+					par->push_back(rg);
+				}
+				
+			}
+			//ss<<par->size();
+			//string y;
+			//ss>>y;
+			//cout<<y<<"aaa"<<endl;
+			
+			ContinuousInputVariable* iv_t = new ContinuousInputVariable(name, r, par);
+			space->addVariable(iv_t);
 		}else{
 
-			iv_t = new DiscreteInputVariable();
 		}
 
 
@@ -50,8 +85,8 @@ SearchSpace Parser::GetSearchSpace(string cf)
 
 	}
 
-	return ss;
-
 	fin.close();
+	return space;
+
 
 }
