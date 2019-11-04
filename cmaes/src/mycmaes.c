@@ -13,7 +13,7 @@ int is_feasible(double const *x, unsigned long N)
 	return 1;
 }
 
-void call_cmaes(mycmaes* mc, double* lbounds, double* ubounds)
+void call_cmaes(mycmaes* mc, double* lbounds, double* ubounds, double* consts)
 {
 	cmaes_t evo; /* an CMA-ES type struct or "object" */
   cmaes_boundary_transformation_t boundaries;
@@ -56,7 +56,7 @@ void call_cmaes(mycmaes* mc, double* lbounds, double* ubounds)
             cmaes_ReSampleSingle(&evo, i); 
             cmaes_boundary_transformation(&boundaries, pop[i], x_in_bounds, dimension);
         }
-        arFunvals[i] = mc->my_fitfun(x_in_bounds, dimension); /* evaluate */
+        arFunvals[i] = mc->my_fitfun(x_in_bounds, consts); /* evaluate */
 		counteval ++;
       }
 

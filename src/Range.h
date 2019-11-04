@@ -5,6 +5,6 @@ class Range{
 	private:
 		
 	public:
-
+		int getType();
 };
 #endif

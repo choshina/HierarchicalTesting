@@ -12,12 +12,17 @@ class SearchSpace{
 	private:
 //		int num;
 		list<InputVariable*> variables;
+		int disNum;
+		int conNum;
 		
 	public:
 		SearchSpace();
 		void addVariable(InputVariable* iv);
+		int getSize();
 		void printVariable();
-
+		int getConNum();
+		int getDisNum();
+		Range* getVariableRange(int s);
 
 };
 

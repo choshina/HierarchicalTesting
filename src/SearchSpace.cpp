@@ -26,3 +26,30 @@ void SearchSpace::printVariable()
 		cout<<(*i)->getName()<<endl;
 	}
 }
+
+int SearchSpace::getSize()
+{
+	return variables.size();
+}
+
+int SearchSpace::getConNum()
+{
+	return conNum;
+}
+
+int SearchSpace::getDisNum()
+{
+	return disNum;
+}
+
+Range* SearchSpace::getVariableRange(int s)
+{
+	list<InputVariable*>::iterator i;
+	int j = 0
+	for(i = variables.begin();i!=variables.end();++i){
+		if(j == s){
+			return (*i);
+		}
+		j++;
+	}
+}

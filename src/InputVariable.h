@@ -21,6 +21,9 @@ class InputVariable{
 		string getName(){
 			return name;
 		}
+		int getNumPartitions(){
+			return partitions.size();
+		}
 
 };
 
