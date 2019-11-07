@@ -2,6 +2,10 @@
 #define MCTS_H
 
 #include "Node.h"
+#include "SearchSpace.h"
+#include "Range.h"
+#include <list>
+using namespace std;
 
 class MCTS{
 	private:
@@ -21,7 +25,7 @@ class MCTS{
 
 		int falsified;
 
-		double playout();
+		double playout(list<Range*>& rgl);
 
 		double (*fitfun) (const double *, const double*);
 	public:
@@ -32,7 +36,7 @@ class MCTS{
 		Node* expand(Node*);
 		Node* bestChild(Node*);
 		double defaultPolicy(Node*);
-		void backup(Node*);
+		void backup(Node*, double);
 
 };
 

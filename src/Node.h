@@ -2,6 +2,10 @@
 #define NODE_H
 #include <list>
 #include <limits.h>
+#include "Range.h"
+#include "InputVariable.h"
+#include "SearchSpace.h"
+using namespace std;
 
 class Node{
 	private:
@@ -10,17 +14,21 @@ class Node{
 //		State* state;
 
 		list<Node*> children;
+		list<Range*> remainChildrenRange;
 		Node* parent;
 
 		int stage;
 
 //		int totalChildrenNum;
-		Range* range;	
+		Range* range;
+
+		SearchSpace* space;
 
 	public:
 		Node();
 
-		Node(Node* p);
+		Node(Node*,  int, Range*, SearchSpace*);
+		Node* expand();
 
 		void addChild(Node* child);
 
@@ -30,9 +38,13 @@ class Node{
 		Node* bestChild(double, double);
 //		State* getState();
 
-		bool terminate();
+		bool terminate(int);
 		int getStage();
-		
+		double getReward();		
+		Node* getParent();
+		void visitPP();
+		void setReward(double);
+		Range* getRange();
 };
 
 #endif

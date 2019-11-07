@@ -5,7 +5,7 @@
 #include "Range.h"
 #include "ContinuousRange.h"
 #include "InputVariable.h"
-#include "ContinuousInputVariable.h"
+//#include "ContinuousInputVariable.h"
 using namespace std;
 
 class SearchSpace{
@@ -22,8 +22,10 @@ class SearchSpace{
 		void printVariable();
 		int getConNum();
 		int getDisNum();
-		Range* getVariableRange(int s);
-
+		InputVariable* getVariable(int s);
+		int getVariablePartitionSize(int s);
+		void setDisNum(int);
+		void setConNum(int);
 };
 
 #endif

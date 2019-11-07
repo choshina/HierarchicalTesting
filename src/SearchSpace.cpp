@@ -42,14 +42,40 @@ int SearchSpace::getDisNum()
 	return disNum;
 }
 
-Range* SearchSpace::getVariableRange(int s)
+InputVariable* SearchSpace::getVariable(int s)
 {
+	
 	list<InputVariable*>::iterator i;
-	int j = 0
+	int j = 1;
 	for(i = variables.begin();i!=variables.end();++i){
 		if(j == s){
 			return (*i);
 		}
 		j++;
 	}
+	return NULL;
+}
+
+
+int SearchSpace::getVariablePartitionSize(int s)
+{
+	list<InputVariable*>::iterator i;
+	int j = 0;
+	for(i = variables.begin();i!=variables.end();++i){
+		if(j == s){
+			return (*i)->getNumPartitions();
+		}
+		j++;
+	}
+	return -1;
+}
+
+void SearchSpace::setDisNum(int d)
+{
+	disNum = d;
+}
+
+void SearchSpace::setConNum(int c)
+{
+	conNum = c;
 }
