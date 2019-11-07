@@ -12,7 +12,7 @@ using namespace std;
 
 double fitfun(const double *x,const double* m)
 {
-	double sum = (x[0]-2)*(x[0]-2);
+	double sum = (x[0]-2)*(x[0]-2) + x[1];
 	return sum;
 }
 

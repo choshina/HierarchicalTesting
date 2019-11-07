@@ -4,10 +4,6 @@ extern "C"{
 }
 #include <iostream>
 using namespace std;
-//MCTS::MCTS()
-//{
-//	root = new Node();
-//}
 
 MCTS::MCTS(double scl, int b_g, int b_l, SearchSpace* ss, double (*fit)(const double *, const double*))
 {
@@ -26,7 +22,6 @@ void MCTS::uctSearch()
 {
 	for(int i = 0;i < budget_global;i++){
 		Node* front = treePolicy(root);
-		cout<<front->getRange()->getType()<<endl;
 		double rew = defaultPolicy(front);
 		if(rew > max_fitness)
 		{
@@ -34,11 +29,11 @@ void MCTS::uctSearch()
 		}
 		if(rew < 0)
 		{
-			backup(front, front->getReward());
+			backup(front, rew);
 			falsified = 1;
 			break;
 		}
-		backup(front, front->getReward());
+		backup(front, rew);
 
 	}
 }
@@ -94,17 +89,14 @@ double MCTS::defaultPolicy(Node* node)
 		rgl.push_back(space->getVariable(s)->getRange());
 		s++;
 	}
-//	cout<<rgl.size()<<endl;
 	return playout(rgl);
 }
 
 double MCTS::playout(list<Range*>& rgl)
 {
-//	cout<<space->getVariableRange(1)->getType()<<endl;
 
 	int conNum = space->getConNum();
 	int disNum = space->getDisNum();
-//	cout<<conNum<<disNum<<endl;
 	double* lb = new double[conNum];
 	double* ub = new double[conNum];
 	double* fix = new double[disNum];
@@ -113,10 +105,8 @@ double MCTS::playout(list<Range*>& rgl)
 	int con_i = 0;
 	int dis_i = 0;
 	for(;iter!=rgl.end();++iter){
-		cout<<((*iter))->getType()<<endl;
 		if((*iter)-> getType() == 0){//continuous
 			lb[con_i] = (*iter)->getLb();
-//			cout<<lb[con_i]<<endl;
 			ub[con_i] = (*iter)->getRb();
 			con_i ++;
 		}else if((*iter)->getType() == 1){//discrete

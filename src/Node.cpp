@@ -74,10 +74,14 @@ Node* Node::bestChild(double maxV, double scalar)
 	double bestScore = -1;
 	list<Node*> bestChildren;
 	for(;iter!=children.end();++iter){
+		cout<<"rw:"<<(*iter)->reward<<"visit:"<<(*iter)->visit<<endl;
+
 		double exploitation = 1.0-(((*iter)->reward)/maxV);
 		double exploration = sqrt((2.0*log(visit))/(*iter)->visit);
 		double score = exploitation + scalar*exploration;
 		
+		cout<<(*iter)->getRange()->getLb()<<":"<<score<<endl;
+
 		if(score == bestScore){
 			bestChildren.push_back(*iter);
 		}
@@ -90,6 +94,7 @@ Node* Node::bestChild(double maxV, double scalar)
 
 	}
 	int n = bestChildren.size();
+//	cout<<"n:"<<n<<endl;
 	if(n>1){
 		int r = (rand()%(n));
 		list<Node*>::iterator iter_t = children.begin();
@@ -98,7 +103,7 @@ Node* Node::bestChild(double maxV, double scalar)
 		return *(iter_t);
 
 	}else{
-		return children.front();
+		return bestChildren.front();
 	}
 	
 }
