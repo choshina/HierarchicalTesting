@@ -2,9 +2,7 @@
 
 ## A quick start
 1. go to src/
-
 2. compile the program by "make"
-
 3. run "./exe"
 
 ## Code structure
@@ -31,4 +29,23 @@
 	* Parser.h
 	* Parser.cpp
 	* main.cpp
+4. Configurations
+	* cmaes_initials.par
+	* cmaes_signals.par
+	* input.config
 
+## Usage:
+1. Set the dimension of variables by modifying 13th line of cmaes_initials.par
+2. Specify the details of variables in input.config.
+3. Specify the objective function in main.cpp "fitfun"
+	- 1st argument is a list of continuous variables
+	- 2nd argument is a list of discrete variables
+4. Specify parameters for the optimizer in main.cpp line 24
+	- 1st argument (0.2): a scalar for balancing exploration and exploitation
+	- 2nd argument (100): a global budget, how many times to visit the tree
+	- 3nd argument (30): a local budget, how many simulations for a local search
+	- 4th argument (ss): no need to touch
+	- 5th argument (&fitfun): no need to touch
+
+## Misc:
+* discrete variables have not been implemented. I will finish it soon.
