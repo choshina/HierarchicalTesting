@@ -48,4 +48,3 @@
 	- 5th argument (&fitfun): no need to touch
 
 ## Misc:
-* discrete variables have not been implemented. I will finish it soon.
