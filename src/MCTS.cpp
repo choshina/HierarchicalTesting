@@ -16,6 +16,7 @@ MCTS::MCTS(double scl, int b_g, int b_l, SearchSpace* ss, double (*fit)(const do
 	max_fitness = 0;
 	falsified = 0;
 	totalStage = space->getSize();
+//	cout<<totalStage<<endl;
 }
 
 void MCTS::uctSearch()
@@ -86,7 +87,8 @@ double MCTS::defaultPolicy(Node* node)
 	rgl.reverse();
 	int s = node->getStage();
 	while(s!=totalStage){
-		rgl.push_back(space->getVariable(s)->getRange());
+//		cout<<"s:"<<s<<space->getVariable(s)->getRange()->getType()<<endl;
+		rgl.push_back(space->getVariable(s+1)->getRange());
 		s++;
 	}
 	return playout(rgl);
@@ -97,6 +99,7 @@ double MCTS::playout(list<Range*>& rgl)
 
 	int conNum = space->getConNum();
 	int disNum = space->getDisNum();
+
 	double* lb = new double[conNum];
 	double* ub = new double[conNum];
 	double* fix = new double[disNum];
@@ -118,7 +121,7 @@ double MCTS::playout(list<Range*>& rgl)
 	
 	mycmaes mc;
 	mc.my_fitfun = fitfun;
-	cout<<lb[0]<<"::"<<ub[0]<<"[["<<budget_local<<endl;
+	cout<<lb[0]<<"::"<<ub[0]<<"::"<<lb[1]<<"::"<<ub[1]<<";;"<<fix[0]<<endl;
 	double res = call_cmaes(&mc, lb, ub, fix, budget_local);
 	return res;
 

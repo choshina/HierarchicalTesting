@@ -5,6 +5,7 @@
 #include "Range.h"
 #include "ContinuousRange.h"
 #include "InputVariable.h"
+#include "DiscreteRange.h"
 //#include "ContinuousInputVariable.h"
 #include "SearchSpace.h"
 using namespace std;

@@ -23,7 +23,7 @@ void SearchSpace::printVariable()
 
 	list<InputVariable*>::iterator i;
 	for(i = variables.begin();i!=variables.end();++i){
-		cout<<(*i)->getName()<<endl;
+		cout<<(*i)->getName()<<"||"<<(*i)->getRange()->getLength()<<endl;
 	}
 }
 

@@ -9,7 +9,7 @@ class ContinuousRange:public Range{
 		double ubound;
 	public:
 		ContinuousRange():Range(){}
-		void buildRange(double l, double u){lbound = l;ubound = u;}
+		void buildRange(double l, double  u){lbound = l;ubound = u;}
 		double getLength(){return (ubound-lbound);}
 		int getType(){return 0;}		
 		double getLb(){return lbound;}
